@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { StorageService } from './_services/storage.service';
 import { AuthService } from './_services/auth.service';
 import { UserService } from './_services/user.service';
+import { ErrorNotificationService } from './_services/error-notification.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,18 @@ export class AppComponent {
   showAdminBoard = false;
   showModeratorBoard = false;
   username?: string;
+  error: string | undefined;
 
-  constructor(private storageService: StorageService, private authService: AuthService, private userService: UserService) { }
+  constructor(
+    private storageService: StorageService,
+    private authService: AuthService,
+    private userService: UserService,
+    private errorNotificationService: ErrorNotificationService
+    ) {
+      this.errorNotificationService.error$.subscribe(errorMessage => {
+        this.error = errorMessage;
+      });
+    }
 
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
@@ -43,5 +54,9 @@ export class AppComponent {
         console.log(err);
       }
     });
+  }
+
+  clearError() {
+    this.error = '';
   }
 }

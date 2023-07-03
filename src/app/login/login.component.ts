@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { StorageService } from '../_services/storage.service';
+import { ErrorNotificationService } from './../_services/error-notification.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,11 @@ export class LoginComponent {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private storageService: StorageService) { }
+  constructor(
+    private authService: AuthService,
+    private storageService: StorageService,
+    private errorNotificationService: ErrorNotificationService
+    ) { }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -41,6 +46,7 @@ export class LoginComponent {
       error: err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
+        this.errorNotificationService.showError(err.error.message);
       }
     });
   }

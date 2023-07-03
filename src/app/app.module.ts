@@ -11,6 +11,7 @@ import { RegisterComponent } from './register/register.component';
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ErrorFlashMessageComponent } from './error-flash-message/error-flash-message.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    ErrorFlashMessageComponent
   ],
   imports: [
     BrowserModule,
